@@ -2,11 +2,12 @@ package com.appgozar.fadeoutparticle
 
 import android.graphics.*
 import android.view.View
+import java.util.*
 import kotlin.random.Random
 
 internal class FadeOutDrawable(private val density: Float) {
     private val rectF = RectF()
-    private var particles: ArrayList<Particle>? = null
+    private var particles: LinkedList<Particle>? = null
     private val particlePaint = Paint()
     private val fadePaint = Paint().apply {
         shader =
@@ -26,7 +27,7 @@ internal class FadeOutDrawable(private val density: Float) {
     fun draw(canvas: Canvas, animationValue: Float) {
         if (animationValue != 0f) {
             val width = rectF.width()
-            val targetWidth = width * (1 - animationValue * 2f)
+            val targetWidth = width * (1 - animationValue * ( 1 + width.limitedWidth() / width))
             fadeMatrix.reset()
             fadeMatrix.postTranslate(targetWidth, 0f)
             fadePaint.shader.setLocalMatrix(fadeMatrix)
@@ -72,7 +73,7 @@ internal class FadeOutDrawable(private val density: Float) {
         val spacePx = space.toPx()
         val verticalCount = Math.max(1, (rectF.height() / spacePx).toInt())
         val horizontalCount = Math.max(1, (rectF.width() / spacePx).toInt())
-        val particles = ArrayList<Particle>(verticalCount * horizontalCount).also {
+        val particles = LinkedList<Particle>().also {
             particles = it
         }
         var horizontalOffset: Float
@@ -84,18 +85,22 @@ internal class FadeOutDrawable(private val density: Float) {
                     PARTICLE_MIN_RADIUS.toDouble(),
                     PARTICLE_MAX_RADIUS.toDouble(),
                 ).toFloat()
-                val particle = Particle(
-                    cx = horizontalOffset,
-                    cy = verticalOffset,
-                    radius = radius.toPx(),
-                    color = bitmap.getPixel(
-                        (horizontalOffset * BITMAP_SCALE).toInt(),
-                        (verticalOffset * BITMAP_SCALE).toInt(),
-                        space,
-                    ).withCoefficientOpacity(radius / PARTICLE_MAX_RADIUS),
-                    pathType = Random.nextInt(0, 5),
-                )
-                particles.add(particle)
+
+                val color = bitmap.getPixel(
+                    (horizontalOffset * BITMAP_SCALE).toInt(),
+                    (verticalOffset * BITMAP_SCALE).toInt(),
+                    space,
+                ).withCoefficientOpacity(radius / PARTICLE_MAX_RADIUS)
+                if(!color.isTransparent()) {
+                    val particle = Particle(
+                        cx = horizontalOffset,
+                        cy = verticalOffset,
+                        radius = radius.toPx(),
+                        color = color,
+                        pathType = Random.nextInt(0, 5),
+                    )
+                    particles.add(particle)
+                }
 
                 horizontalOffset += spacePx
             }
@@ -126,7 +131,9 @@ internal class FadeOutDrawable(private val density: Float) {
     }
 
     private fun Float.progress(width: Float): Float =
-        Math.min(1f, this / Math.min(width, 128f.toPx()))
+        Math.min(1f, this / width.limitedWidth())
+
+    private fun Float.limitedWidth() = Math.min(this, 128f.toPx())
 
     private fun Int.toPx(): Int = (density * this).toInt()
     private fun Float.toPx(): Float = density * this

@@ -30,3 +30,4 @@ internal fun Int.withCoefficientOpacity(alphaCoefficient: Float) : Int{
     val currentOpacity = (this.shr(24).and(0xFF) * alphaCoefficient).toInt()
     return this.and(0x00FFFFFF).or(currentOpacity.shl(24))
 }
+internal fun Int.isTransparent() : Boolean = this.shr(24) == 0

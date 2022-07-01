@@ -18,7 +18,7 @@ allprojects {
 ```
 Add the dependency
 ```
-implementation 'com.github.hoomanmmd:fadeoutparticle:1.0.0'
+implementation 'com.github.hoomanmmd:fadeoutparticle:1.1.0'
 ```
 
 Usage
