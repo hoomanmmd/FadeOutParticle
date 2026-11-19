@@ -1,9 +1,9 @@
-package com.appgozar.fadeoutparticle
+package com.github.hoomanmmd.fadeoutparticle.xml
 
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.DecelerateInterpolator
@@ -11,9 +11,7 @@ import android.widget.FrameLayout
 
 class FadeOutParticleFrameLayout : FrameLayout {
     private val updateListener = ValueAnimator.AnimatorUpdateListener { invalidate() }
-    private val animator = ValueAnimator.ofFloat(0f, 1f).apply {
-        interpolator = DecelerateInterpolator()
-    }
+    private var animator : ValueAnimator
     private var fadeOutDrawable : FadeOutDrawable
 
     var animationDuration = 6000L
@@ -43,7 +41,8 @@ class FadeOutParticleFrameLayout : FrameLayout {
         fadeOutDrawable = FadeOutDrawable(density)
         val padding = (8 * density).toInt()
         setPadding(padding, padding, padding, padding)
-        prepareAnimator()
+        animator = getAnimator()
+        setWillNotDraw(false)
     }
 
     override fun dispatchDraw(canvas: Canvas) {
@@ -80,10 +79,9 @@ class FadeOutParticleFrameLayout : FrameLayout {
      */
     fun reset() {
         animator.cancel()
-        animator.duration = 0
         animator.removeUpdateListener(updateListener)
-        animator.reverse()
-        prepareAnimator()
+        animator = getAnimator()
+        invalidate()
     }
 
     /**
@@ -93,9 +91,12 @@ class FadeOutParticleFrameLayout : FrameLayout {
         animator.addListener(listener)
     }
 
-    private fun prepareAnimator() {
-        animator.addUpdateListener(updateListener)
-        animator.duration = animationDuration
+    private fun getAnimator() : ValueAnimator {
+        return ValueAnimator.ofFloat(0f, 1f).apply {
+            interpolator = DecelerateInterpolator()
+            addUpdateListener(updateListener)
+            duration = animationDuration
+        }
     }
 
     private fun start() {

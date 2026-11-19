@@ -1,6 +1,6 @@
 FadeOutParticle
 ===============  
-FadeOutParticle is an animation for disappearing views like TextViews
+FadeOutParticle is an animation for disappearing composables and views like Text and Icon
 <h1 align="center">
 <img src="/preview.gif?raw=true" alt="FadeOutParticle" />
 </h1>
@@ -18,13 +18,28 @@ allprojects {
 ```
 Add the dependency
 ```
-implementation 'com.github.hoomanmmd:fadeoutparticle:1.1.0'
+implementation 'com.github.hoomanmmd:FadeOutParticle:2.0.0'
 ```
 
 Usage
------  
+-----
+### Compose
+```
+val state = rememberFadeOutParticleState()
+Text("Fade out Particle", Modifier.fadeOutParticle(state))
+Button(
+    onClick = { 
+        state.start()
+    },
+    ) {
+        Text("Start")
+    }
+)
+```
+
+#### XML
 ```  
-<com.appgozar.fadeoutparticle.FadeOutParticleFrameLayout  
+<com.github.hoomanmmd.fadeoutparticle.xml.FadeOutParticleFrameLayout
  android:id="@+id/fade_out_particle"
  android:layout_width="wrap_content"
  android:layout_height="wrap_content">

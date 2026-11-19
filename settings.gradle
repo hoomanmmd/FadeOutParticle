@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Fade out Particle"
-include ':fadeoutparticle', ':example'
+include ':xml', ':compose', ':example', ':core'
