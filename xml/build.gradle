@@ -14,12 +14,27 @@ android {
         minSdk 27
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlin {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
+    }
+    publishing {
+        singleVariant('release') { withSourcesJar() }
+    }
+}
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId 'com.github.hoomanmmd'
+                artifactId 'fadeoutparticle-xml'
+                version = '2.0.2'
+            }
         }
     }
 }
