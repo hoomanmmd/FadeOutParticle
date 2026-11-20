@@ -30,8 +30,8 @@ android {
 publishing {
     publications {
         create<MavenPublication>("release") {
-            groupId = "com.github.hoomanmmd.FadeOutParticle"
-            artifactId = "compose"
+            groupId = "com.github.hoomanmmd"
+            artifactId = "fadeoutparticle-compose"
             version = "2.0.3"
 
             afterEvaluate {

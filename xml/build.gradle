@@ -31,8 +31,8 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId 'com.github.hoomanmmd.FadeOutParticle'
-                artifactId 'xml'
+                groupId 'com.github.hoomanmmd'
+                artifactId 'fadeoutparticle-xml'
                 version = '2.0.3'
             }
         }
