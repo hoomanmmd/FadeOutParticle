@@ -32,7 +32,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.hoomanmmd"
             artifactId = "compose"
-            version = "2.0.3"
+            version = "2.0.6"
 
             afterEvaluate {
                 from(components["release"])
