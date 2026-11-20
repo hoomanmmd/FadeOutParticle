@@ -17,14 +17,13 @@ dependencyResolutionManagement {
 	}
 }
 ```
+### Compose
+
 Add the dependency
 ```
-implementation("com.github.hoomanmmd:FadeOutParticle:2.0.5")
+implementation("com.github.hoomanmmd.FadeOutParticle:compose:2.0.6")
 ```
-
-Usage
------
-### Compose
+#### Usage
 ```
 val state = rememberFadeOutParticleState()
 Text("Fade out Particle", Modifier.fadeOutParticle(state))
@@ -38,7 +37,12 @@ Button(
 )
 ```
 
-#### XML
+### XML
+Add the dependency
+```
+implementation("com.github.hoomanmmd.FadeOutParticle:xml:2.0.6")
+```
+#### Usage
 ```  
 <com.github.hoomanmmd.fadeoutparticle.xml.FadeOutParticleFrameLayout
  android:id="@+id/fade_out_particle"
