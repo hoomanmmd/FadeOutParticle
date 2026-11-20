@@ -32,7 +32,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId 'com.github.hoomanmmd'
-                artifactId 'fadeoutparticle-core'
+                artifactId 'core'
                 version = '2.0.3'
             }
         }

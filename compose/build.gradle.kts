@@ -31,7 +31,7 @@ publishing {
     publications {
         create<MavenPublication>("release") {
             groupId = "com.github.hoomanmmd"
-            artifactId = "fadeoutparticle-compose"
+            artifactId = "compose"
             version = "2.0.3"
 
             afterEvaluate {

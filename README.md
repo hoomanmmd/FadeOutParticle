@@ -19,7 +19,7 @@ dependencyResolutionManagement {
 ```
 Add the dependency
 ```
-implementation("com.github.hoomanmmd:FadeOutParticle:2.0.3")
+implementation("com.github.hoomanmmd:FadeOutParticle:2.0.5")
 ```
 
 Usage
