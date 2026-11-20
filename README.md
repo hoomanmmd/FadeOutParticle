@@ -7,18 +7,19 @@ FadeOutParticle is an animation for disappearing composables and views like Text
 
 Installation
 ------------
-Add it in your root build.gradle at the end of repositories:
+Add it in your settings.gradle.kts at the end of repositories:
 ```
-allprojects {
-    repositories {
-    	...
-		maven { url 'https://jitpack.io' }
+dependencyResolutionManagement {
+	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+	repositories {
+		mavenCentral()
+		maven { url = uri("https://jitpack.io") }
 	}
-} 
+}
 ```
 Add the dependency
 ```
-implementation 'com.github.hoomanmmd:FadeOutParticle:2.0.1'
+implementation("com.github.hoomanmmd:FadeOutParticle:2.0.3")
 ```
 
 Usage
